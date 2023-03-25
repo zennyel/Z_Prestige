@@ -18,8 +18,7 @@ public class PrestigeCommand implements CommandExecutor {
 
         if(args.length == 0){
             Inventory prestige = Bukkit.createInventory(null, 27);
-            new PrestigeGUI(prestige);
-            player.openInventory(prestige);
+            new PrestigeGUI(prestige, player);
         }
 
         switch (args[1]){
@@ -27,6 +26,8 @@ public class PrestigeCommand implements CommandExecutor {
                 break;
             case "cancel":
                 break;
+            default:
+                player.sendMessage("");
         }
 
         return false;

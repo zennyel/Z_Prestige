@@ -10,31 +10,30 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
-public class MessagesConfig {
+public class PrestigeConfig {
 
     private File configFile;
     private FileConfiguration configuration;
     private Reader stream;
     private YamlConfiguration defaultConfig;
 
-    public MessagesConfig(Z_Prestige instance){
-        stream = new InputStreamReader(instance.getResource("messages.yml"), StandardCharsets.UTF_8);
-        this.configFile = new File(instance.getDataFolder() + "messages.yml");
-    configuration = YamlConfiguration.loadConfiguration(configFile);
-    defaultConfig = YamlConfiguration.loadConfiguration(stream);
+    public  PrestigeConfig(Z_Prestige instance){
+        stream = new InputStreamReader(instance.getResource("prestige.yml"), StandardCharsets.UTF_8);
+        this.configFile = new File(instance.getDataFolder() + "prestige.yml");
+        configuration = YamlConfiguration.loadConfiguration(configFile);
+        defaultConfig = YamlConfiguration.loadConfiguration(stream);
         if(!configFile.exists()){
-        try {
-            configFile.createNewFile();
-        }catch (IOException e){
-            e.printStackTrace();
+            try {
+                configFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
-    }
         configuration.setDefaults(defaultConfig);
+    }
 
-}
-
-    public File getConfigFile() {
-        return configFile;
+    public FileConfiguration getConfiguration() {
+        return configuration;
     }
 
     public YamlConfiguration getDefaultConfig() {

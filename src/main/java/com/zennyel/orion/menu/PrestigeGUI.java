@@ -25,6 +25,11 @@ public class PrestigeGUI {
         player.openInventory(inventory);
     }
 
+
+    public void addPrestige(){
+
+    }
+
     public void addGlasses(){
         for(int i = 0; i < inventory.getSize(); i++){
             Material pane = Material.STAINED_GLASS_PANE;
