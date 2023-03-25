@@ -1,0 +1,5 @@
+name: Z_Prestige
+version: '${project.version}'
+main: com.zennyel.z_prestige.Z_Prestige
+authors: [Zennyel, Ghost]
+description: Prestige system for a lifesteal server where they can get rewards for prestiging up with hearts there should be no cap on prestige and it should display prestige using placeholders.

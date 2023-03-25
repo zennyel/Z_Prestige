@@ -1,0 +1,4 @@
+Prestige:
+  level:
+    1: '/tell {player} prestiged!'
+    2: '/tell {player} you have {prestige} prestiges'
