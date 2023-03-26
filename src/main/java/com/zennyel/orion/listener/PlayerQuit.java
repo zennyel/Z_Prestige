@@ -4,20 +4,20 @@ import com.zennyel.orion.prestige.PrestigeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerJoin implements Listener{
+public class PlayerQuit implements Listener {
     private PrestigeManager manager;
-
-    public PlayerJoin(PrestigeManager manager) {
+    public PlayerQuit(PrestigeManager manager) {
         this.manager = manager;
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
-        Player  p = e.getPlayer();
+    public void onQuit(PlayerQuitEvent e){
+        Player p = e.getPlayer();
         if(manager.getPrestige(p) == null){
             manager.loadPrestige(p);
         }
+        manager.savePrestige(p);
     }
 }

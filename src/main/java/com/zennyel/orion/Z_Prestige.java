@@ -3,6 +3,8 @@ package com.zennyel.orion;
 import com.zennyel.orion.commands.PrestigeCommand;
 import com.zennyel.orion.database.MySQL;
 import com.zennyel.orion.listener.InventoryClick;
+import com.zennyel.orion.listener.PlayerJoin;
+import com.zennyel.orion.listener.PlayerQuit;
 import com.zennyel.orion.other.MessagesConfig;
 import com.zennyel.orion.other.PrestigeConfig;
 import com.zennyel.orion.prestige.BonusManager;
@@ -49,6 +51,8 @@ public final class Z_Prestige extends JavaPlugin {
     public void registerEvents(){
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new InventoryClick(prestigeManager, messagesConfig), this);
+        pm.registerEvents(new PlayerQuit(prestigeManager), this);
+        pm.registerEvents(new PlayerJoin(prestigeManager), this);
     }
 
 }

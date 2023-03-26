@@ -75,7 +75,7 @@ public class MySQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return -1;
     }
 
     public void setPrestige(String uuid, int prestige) {
