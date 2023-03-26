@@ -12,11 +12,14 @@ public class PrestigeManager {
     private MySQL sql;
     private HashMap<Player, Prestige> prestigeHashMap;
     private HashMap<Player, Boolean> isPrestiging;
+    private HashMap<Player, Boolean> hasBonus;
     private FileConfiguration config;
 
     public PrestigeManager(MySQL sql, FileConfiguration config){
         this.config = config;
         this.sql = sql;
+        this.prestigeHashMap = new HashMap<>();
+        this.isPrestiging  = new HashMap<>();
     }
 
     public void savePrestige(Player player){
@@ -34,6 +37,7 @@ public class PrestigeManager {
 
     public void loadPrestige(Player player){
         prestigeHashMap.put(player, new Prestige(sql.getPrestige(player.getUniqueId().toString())));
+        isPrestiging.put(player, false);
     }
 
     public Prestige getPrestige(Player player){

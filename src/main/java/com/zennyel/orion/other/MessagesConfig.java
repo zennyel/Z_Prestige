@@ -19,23 +19,26 @@ public class MessagesConfig {
     private YamlConfiguration defaultConfig;
 
     public MessagesConfig(Z_Prestige instance){
-        stream = new InputStreamReader(instance.getResource("messages.yml"), StandardCharsets.UTF_8);
-        this.configFile = new File(instance.getDataFolder() + "messages.yml");
-    configuration = YamlConfiguration.loadConfiguration(configFile);
-    defaultConfig = YamlConfiguration.loadConfiguration(stream);
-        if(!configFile.exists()){
-        try {
-            configFile.createNewFile();
-        }catch (IOException e){
-            e.printStackTrace();
+        this.configFile = new File(instance.getDataFolder(), "messages.yml");
+        if (!configFile.exists()) {
+            try {
+                instance.saveResource("messages.yml", false);
+            } catch (IllegalArgumentException ex) {
+                ex.printStackTrace();
+            }
         }
-    }
+        this.configuration = YamlConfiguration.loadConfiguration(configFile);
+        this.defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(instance.getResource("messages.yml"), StandardCharsets.UTF_8));
         configuration.setDefaults(defaultConfig);
+    }
 
-}
 
-public String getMessage(String path, Player player){
-        return configuration.getString(path).replace("&", "§").replace("{player}", player.getName());
+    public String getMessage(String path, Player player){
+        return configuration.getString(path)
+                .replace("&", "§")
+                .replace("{player}", player.getName())
+                .replace("{tag}", getConfiguration()
+                        .getString("Config.tag").replace("&", "§"));
 }
 
     public FileConfiguration getConfiguration() {

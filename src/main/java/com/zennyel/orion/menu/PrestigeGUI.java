@@ -1,17 +1,27 @@
 package com.zennyel.orion.menu;
 
-import com.zennyel.orion.util.ItemAPI;
+import com.zennyel.orion.Z_Prestige;
+import com.zennyel.orion.other.MessagesConfig;
+import com.zennyel.orion.other.PrestigeConfig;
+import com.zennyel.orion.prestige.PrestigeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PrestigeGUI {
 
     private final Inventory inventory;
-
-
+    private Z_Prestige instance = Z_Prestige.getPlugin(Z_Prestige.class);
+    private PrestigeManager manager = instance.getPrestigeManager();
+    private PrestigeConfig prestigeConfig = instance.getPrestigeConfig();
 
     public PrestigeGUI(Inventory inventory, Player player){
         this.inventory = inventory;
@@ -19,32 +29,55 @@ public class PrestigeGUI {
     }
 
     private void addItems(Player player){
-        inventory.setItem(9 + 2, new ItemAPI(Material.NETHER_STAR, "§6Prestige", ""));
-        inventory.setItem(9 + 5, new ItemAPI(Material.SKULL, "", ""));
-        inventory.setItem(9 + 7, new ItemAPI(Material.BEACON, "§bBonus!", "bonus for prestiging"));
         addGlasses();
+        inventory.setItem(11, item(Material.EMERALD_BLOCK, "§a§lCONFIRM PRESTIGE", prestigeConfirmMessage()));
+        inventory.setItem(15, item(Material.REDSTONE_BLOCK, "§c§lCANCEL", "§e→ exit menu and cancel!"));
         player.openInventory(inventory);
-    }
-
-
-    public void addPrestige(){
-
     }
 
     public void addGlasses(){
         for(int i = 0; i < inventory.getSize(); i++){
             Material pane = Material.STAINED_GLASS_PANE;
-            inventory.setItem(i, new ItemAPI(pane, "", ""));
+            inventory.setItem(i, item(pane, "*", ""));
         }
     }
 
-    public ItemAPI playerHead(Player player){
-        Material material = Material.SKULL;
-        ItemAPI api = new ItemAPI(material, ""+player.getName(), "");
-        SkullMeta meta = (SkullMeta) api.getItemMeta();
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
-        api.setItemMeta(meta);
-        return api;
+    public ItemStack item(Material material, String displayname, String lore){
+        ItemStack is = new ItemStack(material);
+        ItemMeta isMeta = is.getItemMeta();
+        isMeta.setDisplayName(displayname);
+        isMeta.setLore(Arrays.asList(lore));
+        is.setItemMeta(isMeta);
+        return is;
+    }
+
+    public ItemStack item(Material material, String displayname, List<String> lore){
+        ItemStack is = new ItemStack(material);
+        ItemMeta isMeta = is.getItemMeta();
+        isMeta.setDisplayName(displayname);
+        isMeta.setLore(lore);
+        is.setItemMeta(isMeta);
+        return is;
+    }
+
+    public List<String> prestigeConfirmMessage(){
+        int cost = prestigeConfig.getConfiguration().getInt("Prestige.cost");
+        int remaining = prestigeConfig.getConfiguration().getInt("Prestige.remaining");
+        List<String> rewards = prestigeConfig.getConfiguration().getStringList("Prestige.rewards");
+        List<String> lore = new ArrayList<>();
+        lore.add("§7Click for confirm prestiging");
+        lore.add("");
+        lore.add("§aPrestiging cost: §c§l" + cost + " HEARTS");
+        lore.add("§fHearts§f, but gives you §bKeys§f and a §bPrefix§f.");
+        lore.add("§fIt also makes you stronger and more impressive!");
+        lore.add("");
+        lore.add("§b§lREWARDS:");
+        lore.add(rewards.get(0).replace("&", "§"));
+        lore.add(rewards.get(1).replace("&", "§"));
+        lore.add("");
+        lore.add("§4§lWARNING: §cYou will be  set back to §c" + remaining + " hearts.");
+        lore.add("§cBe sure that you want to do this.");
+        return lore;
     }
 
 

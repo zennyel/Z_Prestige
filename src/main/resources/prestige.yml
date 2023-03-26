@@ -1,6 +1,17 @@
 Prestige:
+  #in hearts price
+  cost: 10
+  remaining: 5
+  rewards:
+    - '&bFirst Awesome Reward'
+    - '&bSecond reward'
   level:
-    1: '/tell {player} prestiged!'
-    2: '/tell {player} you have {prestige} prestiges'
-    100: 'sexo'
+    1:
+    - '/tell {player} prestiged!'
+    - '/give {player} bread'
+    2:
+    - '/tell {player} you have {prestige} prestiges'
+    - '/say {player} hi'
+    100:
+      - '/say {player} congratulations, prestiged 100 times!'
 

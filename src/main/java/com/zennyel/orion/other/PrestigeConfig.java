@@ -6,7 +6,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -19,17 +18,16 @@ public class PrestigeConfig {
     private YamlConfiguration defaultConfig;
 
     public  PrestigeConfig(Z_Prestige instance){
-        stream = new InputStreamReader(instance.getResource("prestige.yml"), StandardCharsets.UTF_8);
-        this.configFile = new File(instance.getDataFolder() + "prestige.yml");
-        configuration = YamlConfiguration.loadConfiguration(configFile);
-        defaultConfig = YamlConfiguration.loadConfiguration(stream);
-        if(!configFile.exists()){
+        this.configFile = new File(instance.getDataFolder(), "prestige.yml");
+        if (!configFile.exists()) {
             try {
-                configFile.createNewFile();
-            }catch (IOException e){
-                e.printStackTrace();
+                instance.saveResource("prestige.yml", false);
+            } catch (IllegalArgumentException ex) {
+                ex.printStackTrace();
             }
         }
+        this.configuration = YamlConfiguration.loadConfiguration(configFile);
+        this.defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(instance.getResource("messages.yml"), StandardCharsets.UTF_8));
         configuration.setDefaults(defaultConfig);
     }
 

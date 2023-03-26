@@ -5,8 +5,9 @@ Messages:
   prestige: '{tag} &eAre you sure about that? use /prestige confirm to confirm.'
   confirm: '{tag} &ePrestiging up, use /prestige to see bonuses and rewards.'
   cancel: '{tag} &eCanceling prestige request! '
+  error_not_prestiging: '{tag} &e{player} are you not prestiging, you cannot confirm!'
+  error_insufficient_hearts: "{tag} &e{player} you don't have hearts enought!"
 Config:
-  logMessages: true
   tag: '&a[Z_Prestige] '
-
+  logMessages: true
 

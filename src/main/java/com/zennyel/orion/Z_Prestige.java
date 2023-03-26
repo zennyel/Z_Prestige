@@ -10,6 +10,7 @@ import com.zennyel.orion.other.PrestigeConfig;
 import com.zennyel.orion.prestige.BonusManager;
 import com.zennyel.orion.prestige.PrestigeManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,10 +28,12 @@ public final class Z_Prestige extends JavaPlugin {
         setupManagers();
         registerEvents();
         registerCommands();
+        loadPlayers();
     }
 
     @Override
     public void onDisable() {
+        savePlayers();
         sql.disconnect();
     }
     private void setupSql(){
@@ -46,13 +49,32 @@ public final class Z_Prestige extends JavaPlugin {
     }
 
     public void registerCommands(){
-        getCommand("prestige").setExecutor(new PrestigeCommand());
+        getCommand("prestige").setExecutor(new PrestigeCommand(prestigeManager, messagesConfig));
     }
     public void registerEvents(){
         PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new InventoryClick(prestigeManager, messagesConfig), this);
+        pm.registerEvents(new InventoryClick(prestigeManager, messagesConfig, prestigeConfig), this);
         pm.registerEvents(new PlayerQuit(prestigeManager), this);
         pm.registerEvents(new PlayerJoin(prestigeManager), this);
     }
 
+    public void loadPlayers(){
+        for(Player p : Bukkit.getOnlinePlayers()){
+            prestigeManager.loadPrestige(p);
+        }
+    }
+
+    public void savePlayers(){
+        for(Player p : Bukkit.getOnlinePlayers()){
+            prestigeManager.savePrestige(p);
+        }
+    }
+
+    public PrestigeConfig getPrestigeConfig() {
+        return prestigeConfig;
+    }
+
+    public PrestigeManager getPrestigeManager() {
+        return prestigeManager;
+    }
 }
