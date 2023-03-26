@@ -9,6 +9,7 @@ public class PrestigeManager {
 
     private MySQL sql;
     private HashMap<Player, Prestige> prestigeHashMap;
+    private HashMap<Player, Boolean> isPrestiging;
 
     public PrestigeManager(MySQL sql){
         this.sql = sql;
@@ -30,5 +31,14 @@ public class PrestigeManager {
     public void setPrestige(Player player, Prestige prestige){
         prestigeHashMap.put(player, prestige);
     }
+
+    public boolean isPrestiging(Player player){
+        return this.isPrestiging.get(player);
+    }
+
+    public void setIsPrestiging(Player player, Boolean isPrestiging ){
+        this.isPrestiging.put(player, isPrestiging);
+    }
+
 
 }

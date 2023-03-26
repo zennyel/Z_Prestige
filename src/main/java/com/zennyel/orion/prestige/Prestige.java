@@ -15,4 +15,6 @@ public class Prestige {
     public void setPrestige(int prestige) {
         Prestige = prestige;
     }
+
+
 }
