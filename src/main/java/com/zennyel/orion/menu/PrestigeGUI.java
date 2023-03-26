@@ -20,7 +20,7 @@ public class PrestigeGUI {
 
     private void addItems(Player player){
         inventory.setItem(9 + 2, new ItemAPI(Material.NETHER_STAR, "§6Prestige", ""));
-        inventory.setItem(9 + 5, playerHead(player));
+        inventory.setItem(9 + 5, new ItemAPI(Material.SKULL, "", ""));
         inventory.setItem(9 + 7, new ItemAPI(Material.BEACON, "§bBonus!", "bonus for prestiging"));
         addGlasses();
         player.openInventory(inventory);

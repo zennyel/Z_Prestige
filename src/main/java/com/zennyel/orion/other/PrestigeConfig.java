@@ -3,6 +3,7 @@ package com.zennyel.orion.other;
 import com.zennyel.orion.Z_Prestige;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,10 @@ public class PrestigeConfig {
             }
         }
         configuration.setDefaults(defaultConfig);
+    }
+
+    public String getPrestige(String path, Player player){
+        return configuration.getString(path).replace("&", "§").replace("{player}", player.getName());
     }
 
     public FileConfiguration getConfiguration() {

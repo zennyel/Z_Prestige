@@ -1,5 +1,12 @@
+#& = colorcode
+#{tag} = tag:
+#{player} = player.getName();
 Messages:
-  prestige: 'Are you sure about that? use /prestige confirm to confirm.'
-  confirm: 'Prestiging up, use /prestige to see bonuses and rewards.'
-  cancel: 'Canceling prestige request! '
+  prestige: '{tag} &eAre you sure about that? use /prestige confirm to confirm.'
+  confirm: '{tag} &ePrestiging up, use /prestige to see bonuses and rewards.'
+  cancel: '{tag} &eCanceling prestige request! '
+Config:
+  logMessages: true
+  tag: '&a[Z_Prestige] '
+
 

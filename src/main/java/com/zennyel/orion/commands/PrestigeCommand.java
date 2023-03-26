@@ -19,6 +19,7 @@ public class PrestigeCommand implements CommandExecutor {
         if(args.length == 0){
             Inventory prestige = Bukkit.createInventory(null, 27, "§6Prestige Menu");
             new PrestigeGUI(prestige, player);
+            return false;
         }
 
         switch (args[1]){

@@ -38,6 +38,10 @@ public String getMessage(String path, Player player){
         return configuration.getString(path).replace("&", "§").replace("{player}", player.getName());
 }
 
+    public FileConfiguration getConfiguration() {
+        return configuration;
+    }
+
     public File getConfigFile() {
         return configFile;
     }

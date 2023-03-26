@@ -1,5 +1,15 @@
 name: Z_Prestige
 version: '${project.version}'
-main: com.zennyel.z_prestige.Z_Prestige
+main: com.zennyel.orion.Z_Prestige
 authors: [Zennyel, Ghost]
 description: Prestige system for a lifesteal server where they can get rewards for prestiging up with hearts there should be no cap on prestige and it should display prestige using placeholders.
+commands:
+  prestige:
+    description: acess the menu and confirm or cancel prestige requests.
+permissions:
+  prestige.*:
+    description: administrator permission
+  prestige.use:
+    description: allow user to use the prestige command.
+  prestige.cancel:
+    description: allow user to cancel the current prestige request.

@@ -1,5 +1,7 @@
 package com.zennyel.orion.database;
 
+import com.zennyel.orion.Z_Prestige;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.sql.Connection;
@@ -31,8 +33,11 @@ public class MySQL {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false", username, password);
+            Bukkit.getConsoleSender().sendMessage("§a§lConnected to database!");
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            Bukkit.getConsoleSender().sendMessage("§c§lFailed to database connection, plugin shutingdown!");
+            Bukkit.getConsoleSender().sendMessage("§c§lError:" + e.getCause());
+            Bukkit.getPluginManager().disablePlugin(Z_Prestige.getPlugin(Z_Prestige.class));
         }
     }
 
@@ -40,9 +45,10 @@ public class MySQL {
         try {
             if (connection != null) {
                 connection.close();
+                Bukkit.getConsoleSender().sendMessage("§a§lDisconnecting of database!");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Bukkit.getConsoleSender().sendMessage("§a§lDisconnecting of database!");
         }
     }
 

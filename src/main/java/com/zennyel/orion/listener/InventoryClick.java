@@ -37,7 +37,7 @@ public class InventoryClick implements Listener {
             case 15:
                 break;
         }
-
+        e.setCancelled(true);
     }
 
     public boolean canPrestige(Player player){
