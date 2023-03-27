@@ -7,10 +7,6 @@ commands:
   prestige:
     description: acess the menu and confirm or cancel prestige requests.
 permissions:
-  prestige.*:
-    description: administrator permission
   prestige.use:
     description: allow user to use the prestige command.
-  prestige.cancel:
-    description: allow user to cancel the current prestige request.
 softdepend: [PlaceholderAPI]

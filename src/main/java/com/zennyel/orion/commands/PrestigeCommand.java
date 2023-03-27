@@ -36,6 +36,11 @@ public class PrestigeCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
+        if(!player.hasPermission("prestige.use")){
+            player.sendMessage(messagesConfig.getMessage("Messages.error_not_permission", player));
+            return  false;
+        }
+
         if(args.length == 0){
             Inventory prestige = Bukkit.createInventory(null, 27, "§8Confirm prestiging!");
             new PrestigeGUI(prestige, player);
