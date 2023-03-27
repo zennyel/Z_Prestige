@@ -30,7 +30,7 @@ public class PrestigeGUI {
 
     private void addItems(Player player){
         addGlasses();
-        inventory.setItem(11, item(Material.EMERALD_BLOCK, "§a§lCONFIRM PRESTIGE", prestigeConfirmMessage()));
+        inventory.setItem(11, item(Material.EMERALD_BLOCK, "§a§lCONFIRM PRESTIGE", prestigeConfirmMessage(player)));
         inventory.setItem(15, item(Material.REDSTONE_BLOCK, "§c§lCANCEL", "§e→ exit menu and cancel!"));
         player.openInventory(inventory);
     }
@@ -60,23 +60,24 @@ public class PrestigeGUI {
         return is;
     }
 
-    public List<String> prestigeConfirmMessage(){
+    public List<String> prestigeConfirmMessage(Player player){
         int cost = prestigeConfig.getConfiguration().getInt("Prestige.cost");
         int remaining = prestigeConfig.getConfiguration().getInt("Prestige.remaining");
         List<String> rewards = prestigeConfig.getConfiguration().getStringList("Prestige.rewards");
         List<String> lore = new ArrayList<>();
         lore.add("§7Click for confirm prestiging");
+        lore.add("§7prestiged times: " + manager.getPrestige(player).getPrestige());
         lore.add("");
-        lore.add("§aPrestiging cost: §c§l" + cost + " HEARTS");
-        lore.add("§fHearts§f, but gives you §bKeys§f and a §bPrefix§f.");
-        lore.add("§fIt also makes you stronger and more impressive!");
+        lore.add("§fPrestiging costs §c" + cost + " HEARTS§f but gives");
+        lore.add("§fyou Keys§f and a §bPrefix§f. It also makes");
+        lore.add("§fyou stronger and more impressive!");
         lore.add("");
         lore.add("§b§lREWARDS:");
         lore.add(rewards.get(0).replace("&", "§"));
         lore.add(rewards.get(1).replace("&", "§"));
         lore.add("");
         lore.add("§4§lWARNING: §cYou will be  set back to §c" + remaining + " hearts.");
-        lore.add("§cBe sure that you want to do this.");
+        lore.add("§cbe sure that you want to do this.");
         return lore;
     }
 

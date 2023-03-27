@@ -13,3 +13,4 @@ permissions:
     description: allow user to use the prestige command.
   prestige.cancel:
     description: allow user to cancel the current prestige request.
+softdepend: [PlaceholderAPI]

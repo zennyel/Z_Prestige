@@ -9,6 +9,7 @@ import com.zennyel.orion.other.MessagesConfig;
 import com.zennyel.orion.other.PrestigeConfig;
 import com.zennyel.orion.prestige.BonusManager;
 import com.zennyel.orion.prestige.PrestigeManager;
+import com.zennyel.orion.prestige.PrestigePlaceHolderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -26,30 +27,39 @@ public final class Z_Prestige extends JavaPlugin {
         saveDefaultConfig();
         setupSql();
         setupManagers();
-        registerEvents();
-        registerCommands();
-        loadPlayers();
+        if(this.isEnabled()) {
+            registerEvents();
+            registerCommands();
+            loadPlayers();
+        }
     }
 
     @Override
     public void onDisable() {
-        savePlayers();
+        if(this.prestigeManager != null) {
+            savePlayers();
+        }
         sql.disconnect();
     }
     private void setupSql(){
         this.sql = new MySQL(this.getConfig());
         sql.connect();
-        sql.createTable();
+        if(sql.getConnection() != null) {
+            sql.createTable();
+        }
     }
     private void setupManagers(){
         this.messagesConfig = new MessagesConfig(this);
         this.prestigeConfig = new PrestigeConfig(this);
-        this.bonusManager = new BonusManager(prestigeConfig);
         this.prestigeManager = new PrestigeManager(sql, messagesConfig.getConfiguration());
+        this.bonusManager = new BonusManager(prestigeConfig, prestigeManager);
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PrestigePlaceHolderExpansion(this, prestigeManager).register();
+        }
     }
 
     public void registerCommands(){
-        getCommand("prestige").setExecutor(new PrestigeCommand(prestigeManager, messagesConfig));
+        getCommand("prestige").setExecutor(new PrestigeCommand(prestigeManager, messagesConfig, bonusManager));
     }
     public void registerEvents(){
         PluginManager pm = Bukkit.getPluginManager();

@@ -25,7 +25,7 @@ public class InventoryClick implements Listener {
     public void onInventoryClick(InventoryClickEvent e){
         Player player = (Player) e.getWhoClicked();
 
-        if(!e.getInventory().getName().equalsIgnoreCase("§8Confirm prestiging!")){
+        if(!e.getView().getTitle().equalsIgnoreCase("§8Confirm prestiging!")){
             return;
         }
 
@@ -34,17 +34,14 @@ public class InventoryClick implements Listener {
                 if(canPrestige(player)){
                     manager.setIsPrestiging(player, true);
                     player.sendMessage(messagesConfig.getMessage("Messages.prestige", player));
-                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1, 1);
                     player.closeInventory();
                 }else {
                     player.sendMessage(messagesConfig.getMessage("Messages.error_insufficient_hearts", player));
-                    player.playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
                     player.closeInventory();
                 }
                 break;
             case 15:
                 player.sendMessage(messagesConfig.getMessage("Messages.cancel", player));
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 1, 1);
                 player.closeInventory();
                 break;
         }

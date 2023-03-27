@@ -3,40 +3,59 @@ package com.zennyel.orion.prestige;
 import com.zennyel.orion.other.PrestigeConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BonusManager {
 
 
-    private PrestigeConfig config;
-     private int lastLevel;
-     private String command;
-     private List<String> commands;
+    private PrestigeConfig configPrestige;
+    private FileConfiguration config;
+    private PrestigeManager manager;
 
-     public BonusManager(PrestigeConfig config){
-         this.config = config;
-     }
-     public void addConfigs(){
-         for(int i = 0; i < config.getConfiguration().getConfigurationSection("Prestige.level").getKeys(true).size(); i++){
-             command = config.getConfiguration().getString("Prestige.level." + i);
-             if(command == null){
-                 int previous = i -1;
-                 command = config.getConfiguration().getString("Prestige.level." + previous);
-                 commands.add(command);
-                 return;
-             }
-             commands.add(command);
-         }
+     String command;
+     List<String> commands;
+
+     public BonusManager(PrestigeConfig config, PrestigeManager manager){
+         this.configPrestige = config;
+         this.config = configPrestige.getConfiguration();
+         this.manager = manager;
      }
 
-     public void executeListCommand(int level, Player player){
-         addConfigs();
-         command = commands.get(level -1).replace("&", "§").replace("{player}", player.getName());
-         ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-         Bukkit.dispatchCommand(console, command);
-     }
+    public void executeCommand(Player p, int level) {
+        List<String> commands = new ArrayList<>();
+
+        while (level > 0) {
+            if (config.contains("Prestige.level." + level)) {
+                commands = config.getStringList("Prestige.level." + level);
+                break;
+            }
+            level--;
+        }
+
+
+        if (commands.isEmpty()) {
+            while (level > 0) {
+                level--;
+                if (config.contains("Prestige.level." + level)) {
+                    commands = config.getStringList("Prestige.level." + level);
+                    break;
+                }
+            }
+        }
+
+        ConsoleCommandSender console = Bukkit.getConsoleSender();
+        for (String command : commands) {
+            command = command.replace("{player}", p.getName())
+                    .replace("{prestige}", String.valueOf(manager.getPrestige(p).getPrestige()));
+            Bukkit.dispatchCommand(console, command);
+        }
+    }
 
     public List<String> getCommands() {
         return commands;

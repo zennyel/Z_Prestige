@@ -2,11 +2,12 @@
 #{tag} = tag:
 #{player} = player.getName();
 Messages:
-  prestige: '{tag} &eAre you sure about that? use /prestige confirm to confirm.'
-  confirm: '{tag} &ePrestiging up, use /prestige to see bonuses and rewards.'
-  cancel: '{tag} &eCanceling prestige request! '
-  error_not_prestiging: '{tag} &e{player} are you not prestiging, you cannot confirm!'
-  error_insufficient_hearts: "{tag} &e{player} you don't have hearts enought!"
+  prestige: '{tag} &bAre you sure about that? use /prestige confirm to confirm.'
+  confirm: '{tag} &bPrestiging up, use /prestige to see bonuses and rewards.'
+  cancel: '{tag} &bCanceling prestige request! '
+  command_not_found: "{tag} &bThe issued command doesn't exists!"
+  error_not_prestiging: '{tag} &b{player} are you not prestiging, you cannot confirm!'
+  error_insufficient_hearts: "{tag} &b{player} you don't have hearts enought!"
 Config:
   tag: '&a[Z_Prestige] '
   logMessages: true

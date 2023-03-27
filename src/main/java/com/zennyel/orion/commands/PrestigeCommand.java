@@ -3,8 +3,9 @@ package com.zennyel.orion.commands;
 import com.zennyel.orion.Z_Prestige;
 import com.zennyel.orion.menu.PrestigeGUI;
 import com.zennyel.orion.other.MessagesConfig;
+import com.zennyel.orion.prestige.BonusManager;
+import com.zennyel.orion.prestige.Prestige;
 import com.zennyel.orion.prestige.PrestigeManager;
-import com.zennyel.orion.util.TitleAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -17,15 +18,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import static com.zennyel.orion.util.TitleAPI.sendTitle;
-
 public class PrestigeCommand implements CommandExecutor {
     private PrestigeManager manager;
     private MessagesConfig messagesConfig;
+    private BonusManager bonusManager;
 
-    public PrestigeCommand(PrestigeManager manager, MessagesConfig messagesConfig) {
+    public PrestigeCommand(PrestigeManager manager, MessagesConfig messagesConfig, BonusManager bonusManager) {
         this.manager = manager;
         this.messagesConfig = messagesConfig;
+        this.bonusManager = bonusManager;
     }
 
     @Override
@@ -44,19 +45,18 @@ public class PrestigeCommand implements CommandExecutor {
         switch (args[0]){
             case "confirm":
                 if(manager.isPrestiging(player)){
+                    int prestige = manager.getPrestige(player).getPrestige();
                     player.sendMessage(messagesConfig.getMessage("Messages.confirm", player));
                     spawnFireworks(player);
                     manager.setIsPrestiging(player, false);
-                    sendTitle(player,10, 10, 10, "§bPRESTIGING", "§7Congratulations!");
-
+                    manager.setPrestige(player, new Prestige(prestige + 1));
+                    bonusManager.executeCommand(player, prestige);
                 }else{
                     player.sendMessage(messagesConfig.getMessage("Messages.error_not_prestiging", player));
                 }
                 break;
-            case "cancel":
-                break;
             default:
-                player.sendMessage("");
+                player.sendMessage(messagesConfig.getMessage("Messages.command_not_found", player));
         }
 
         return false;
