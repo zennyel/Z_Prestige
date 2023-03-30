@@ -1,16 +1,13 @@
 package com.zennyel.orion.menu;
 
 import com.zennyel.orion.Z_Prestige;
-import com.zennyel.orion.other.MessagesConfig;
-import com.zennyel.orion.other.PrestigeConfig;
-import com.zennyel.orion.prestige.PrestigeManager;
-import org.bukkit.Bukkit;
+import com.zennyel.orion.config.PrestigeConfig;
+import com.zennyel.orion.managers.PrestigeManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +34,7 @@ public class PrestigeGUI {
 
     public void addGlasses(){
         for(int i = 0; i < inventory.getSize(); i++){
-            Material pane = Material.STAINED_GLASS_PANE;
+            Material pane = Material.BLACK_STAINED_GLASS_PANE;
             inventory.setItem(i, item(pane, "*", ""));
         }
     }

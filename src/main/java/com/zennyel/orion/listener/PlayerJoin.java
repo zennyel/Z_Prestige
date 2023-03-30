@@ -1,6 +1,6 @@
 package com.zennyel.orion.listener;
 
-import com.zennyel.orion.prestige.PrestigeManager;
+import com.zennyel.orion.managers.PrestigeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,9 +1,8 @@
 package com.zennyel.orion.listener;
 
-import com.zennyel.orion.other.MessagesConfig;
-import com.zennyel.orion.other.PrestigeConfig;
-import com.zennyel.orion.prestige.PrestigeManager;
-import org.bukkit.Sound;
+import com.zennyel.orion.config.MessagesConfig;
+import com.zennyel.orion.config.PrestigeConfig;
+import com.zennyel.orion.managers.PrestigeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

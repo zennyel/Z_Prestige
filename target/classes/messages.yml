@@ -6,6 +6,7 @@ Messages:
   confirm: '{tag} &bPrestiging up, use /prestige to see bonuses and rewards.'
   cancel: '{tag} &bCanceling prestige request! '
   command_not_found: "{tag} &bThe issued command doesn't exists!"
+  error_not_permission: '{tag} &c{player} you dont have permission to use this command!'
   error_not_prestiging: '{tag} &b{player} are you not prestiging, you cannot confirm!'
   error_insufficient_hearts: "{tag} &b{player} you don't have hearts enought!"
 Config:

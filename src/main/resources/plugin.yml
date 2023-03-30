@@ -3,6 +3,7 @@ version: '${project.version}'
 main: com.zennyel.orion.Z_Prestige
 authors: [Zennyel, Ghost]
 description: Prestige system for a lifesteal server where they can get rewards for prestiging up with hearts there should be no cap on prestige and it should display prestige using placeholders.
+api-version: 1.19
 commands:
   prestige:
     description: acess the menu and confirm or cancel prestige requests.

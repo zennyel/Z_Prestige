@@ -19,14 +19,16 @@ public class MySQL {
     private String table;
 
     private Connection connection;
+    SQLite sqLite;
 
-    public MySQL(FileConfiguration config) {
+    public MySQL(FileConfiguration config, SQLite sqLite) {
         this.host = config.getString("MySQL.host");
         this.port = config.getInt("MySQL.port");
         this.database = config.getString("MySQL.database");
         this.username = config.getString("MySQL.username");
         this.password = config.getString("MySQL.password");
         this.table = config.getString("MySQL.table");
+        this.sqLite = sqLite;
     }
 
     public void connect() {
@@ -35,9 +37,10 @@ public class MySQL {
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false", username, password);
             Bukkit.getConsoleSender().sendMessage("§a§lConnected to database!");
         } catch (ClassNotFoundException | SQLException e) {
-            Bukkit.getConsoleSender().sendMessage("§c§lFailed to database connection, plugin shutingdown!");
             Bukkit.getConsoleSender().sendMessage("§c§lError:" + e.getCause());
-            Bukkit.getPluginManager().disablePlugin(Z_Prestige.getPlugin(Z_Prestige.class));
+            Bukkit.getConsoleSender().sendMessage("§c§lFailed to database connection, trying sqlite");
+            sqLite.connect();
+            setConnection(sqLite.getConnection());
         }
     }
 
@@ -88,6 +91,10 @@ public class MySQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 
     public Connection getConnection() {

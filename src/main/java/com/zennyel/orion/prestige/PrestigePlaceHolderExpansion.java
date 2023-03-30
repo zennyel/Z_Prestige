@@ -1,6 +1,7 @@
 package com.zennyel.orion.prestige;
 
 import com.zennyel.orion.Z_Prestige;
+import com.zennyel.orion.managers.PrestigeManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

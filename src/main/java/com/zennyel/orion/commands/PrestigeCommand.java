@@ -2,10 +2,10 @@ package com.zennyel.orion.commands;
 
 import com.zennyel.orion.Z_Prestige;
 import com.zennyel.orion.menu.PrestigeGUI;
-import com.zennyel.orion.other.MessagesConfig;
-import com.zennyel.orion.prestige.BonusManager;
+import com.zennyel.orion.config.MessagesConfig;
+import com.zennyel.orion.managers.BonusManager;
 import com.zennyel.orion.prestige.Prestige;
-import com.zennyel.orion.prestige.PrestigeManager;
+import com.zennyel.orion.managers.PrestigeManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
